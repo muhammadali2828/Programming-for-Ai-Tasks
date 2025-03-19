@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Herd Detection</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(90deg, #000428, #004e92);
+            color: white;
+            text-align: center;
+        }
+        header {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            margin-top: 100px; /* Moves the video down */
+        }
+        img {
+            border: 5px solid #00ffea;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00ffea;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Animal Herd Detection System <br>
+        <span style="font-size: 18px;">Developed by Muhammad Ali | Roll No: SU92-BSAIM-F23-022</span>
+    </header>
+    <div class="video-container">
+        <img src="{{ url_for('video') }}" width="800">
+    </div>
+</body>
+</html>
