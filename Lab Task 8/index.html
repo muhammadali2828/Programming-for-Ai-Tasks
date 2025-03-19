@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mars Rover Photos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #fff;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5rem;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-items: center;
+        }
+        .photo {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .photo:hover {
+            transform: scale(1.05);
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .loader {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            display: none;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1e1e1e;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <h1><i class="fas fa-rocket"></i> Mars Rover Photos</h1>
+    <p class="loader">Loading photos... <i class="fas fa-spinner fa-spin"></i></p>
+    <div class="container">
+        {% for photo in apod.photos[:20] %}
+        <div class="photo">
+            <img src="{{ photo.img_src }}" alt="Mars Rover Photo">
+        </div>
+        {% endfor %}
+    </div>
+    
+    <footer>
+        <p>Developed by Muhammad Ali | SU92-BSAIM-F23-022</p>
+    </footer>
+</body>
+</html>
