@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 
 NASA_API = "PQJ1o3eHjBHbKQhYZOXMkFDubNXCkbFdqhDHMLOv"
-APOD_URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY"
+APOD_URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=PQJ1o3eHjBHbKQhYZOXMkFDubNXCkbFdqhDHMLOv"
 
 @app.route("/", methods=["GET"])
 def index():
