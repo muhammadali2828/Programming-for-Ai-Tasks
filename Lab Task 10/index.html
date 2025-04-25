@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Superior University Admission Chatbot</title>
+  <style>
+    /* Your existing CSS is unchanged */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: background 0.3s;
+    }
+
+    .light-mode {
+      background: #f4f4f8;
+    }
+
+    .dark-mode {
+      background: #1c1b22;
+    }
+
+    .chat-container {
+      background: #ffffff;
+      width: 420px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dark-mode .chat-container {
+      background: #2d2c36;
+      color: #fff;
+    }
+
+    .chat-header {
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .chat-header img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+
+    .chat-header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #6b1e8a;
+    }
+
+    .dark-mode .chat-header h2 {
+      color: #cfa8ff;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #6b1e8a;
+      font-size: 14px;
+    }
+
+    .dark-mode .toggle-btn {
+      color: #cfa8ff;
+    }
+
+    .chat-box {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #dcd6e0;
+      padding: 10px;
+      background: #f6f1fa;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .dark-mode .chat-box {
+      background: #3c3945;
+      border-color: #5e5b6b;
+    }
+
+    .user-message, .bot-message {
+      margin: 8px 0;
+      padding: 8px 12px;
+      border-radius: 8px;
+      max-width: 80%;
+      display: inline-block;
+    }
+
+    .user-message {
+      background-color: #d6b3f5;
+      float: right;
+    }
+
+    .dark-mode .user-message {
+      background-color: #9f75e0;
+    }
+
+    .bot-message {
+      background-color: #ece0f9;
+      float: left;
+    }
+
+    .dark-mode .bot-message {
+      background-color: #7e67b4;
+      color: #fff;
+    }
+
+    .input-area {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px 0 0 6px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    .dark-mode .input-area input {
+      background: #4d4a59;
+      color: #fff;
+      border: 1px solid #888;
+    }
+
+    .input-area button {
+      padding: 10px 16px;
+      border: none;
+      background: #6b1e8a;
+      color: white;
+      border-radius: 0 6px 6px 0;
+      cursor: pointer;
+    }
+
+    .input-area button:hover {
+      background: #580f74;
+    }
+
+    .chat-box::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+  </style>
+</head>
+<body class="light-mode">
+  <div class="chat-container">
+    <div class="chat-header">
+      <img src="{{ url_for('static', filename='images.png') }}" alt="University Logo">
+      <h2>Superior University Admission Chatbot</h2>
+      <button class="toggle-btn" onclick="toggleTheme()">🌙 Dark Mode</button>
+    </div>
+    <div class="chat-box" id="chat-box">
+      <div class="bot-message">Hi! I'm your admission assistant. Ask me anything about admissions.</div>
+    </div>
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Type your question here..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const inputField = document.getElementById("user-input");
+      const userInput = inputField.value.trim();
+      if (!userInput) return;
+
+      const chatBox = document.getElementById("chat-box");
+      chatBox.innerHTML += `<div class='user-message'>${userInput}</div>`;
+      inputField.value = "";
+
+      fetch('/get_response', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userInput })
+      })
+      .then(response => response.json())
+      .then(data => {
+        chatBox.innerHTML += `<div class='bot-message'>${data.response}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      body.classList.toggle("dark-mode");
+      body.classList.toggle("light-mode");
+      const btn = document.querySelector(".toggle-btn");
+      btn.textContent = body.classList.contains("dark-mode") ? "☀️ Light Mode" : "🌙 Dark Mode";
+    }
+
+    // ✅ Enter key support
+    document.addEventListener("DOMContentLoaded", function () {
+      const inputField = document.getElementById("user-input");
+      inputField.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          sendMessage();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
