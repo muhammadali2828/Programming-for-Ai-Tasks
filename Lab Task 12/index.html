@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>El Resto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">
+            <h1>🍝 El Resto</h1>
+            <p>Ask anything about our restaurant!</p>
+        </div>
+
+        <div class="chat-box" id="chat-box">
+            <div class="bot-message">Hello! How can I help you today?</div>
+        </div>
+
+        <form id="chat-form">
+            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('chat-form');
+        const input = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const userText = input.value.trim();
+            if (!userText) return;
+
+            // Display user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'user-message';
+            userDiv.innerText = userText;
+            chatBox.appendChild(userDiv);
+
+            input.value = "";
+
+            const response = await fetch("/get", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userText })
+            });
+            const data = await response.json();
+
+            // Display bot response
+            const botDiv = document.createElement('div');
+            botDiv.className = 'bot-message';
+            botDiv.innerText = data.response;
+            chatBox.appendChild(botDiv);
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
+    </script>
+</body>
+</html>
