@@ -1,0 +1,15 @@
+context_data = """Program: BS Artificial Intelligence -  Eligibility: Minimum Intermediate (FSc Pre-Engineering / ICS) with 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore, Multan.
+Program: BS Robotics -  Eligibility: Intermediate (FSc Pre-Engineering or ICS) with minimum 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore.
+Program: BS Internet of Things -  Eligibility: Intermediate (FSc Pre-Engineering or ICS) with minimum 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore, Faisalabad.
+Program: BS Cyber Security -  Eligibility: Intermediate (FSc Pre-Engineering or ICS) with minimum 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore.
+Program: BS Software Engineering -  Eligibility: Intermediate (FSc Pre-Engineering or ICS) with minimum 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore, Sargodha.
+Program: BS Data Science -  Eligibility: Intermediate (FSc Pre-Engineering or ICS) with minimum 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore, Faisalabad.
+Program: BS Information Technology -  Eligibility: Intermediate (FSc Pre-Engineering or ICS) with minimum 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore, Sargodha.
+Program: BS Computer Science -  Eligibility: Intermediate (FSc Pre-Engineering or ICS) with minimum 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore, Multan.
+Program: BS Business Administration -  Eligibility: Intermediate (any stream) with minimum 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore, Faisalabad.
+Program: BS Accounting & Finance -  Eligibility: Intermediate (any stream) with minimum 50% marks.. Duration: 4 years (8 semesters). Fee: PKR 155,000 per semester. Campuses: Lahore, Sargodha.
+Deadline: Fall 2025 Admissions -  Apply from April 15, 2025 to July 15, 2025. Entry Test on July 20, 2025.
+Documents: Required Documents for BS Programs -  Required Documents: Matriculation certificate (attested copy), Intermediate certificate or result card, CNIC/Form-B, Passport-size photographs (4), Entry test result (if applicable).
+Scholarship: Merit-Based Scholarships - Up to 100% fee waiver based on academic performance. Eligibility Note: Minimum 85% marks in intermediate or top 10 board position holders.. How to Apply: Automatically considered at time of admission..
+Contact: Admission Office -  Email: admissions@superior.edu.pk. Phone: +92-42-111-00-00-78. Address: Main Campus: 31-Tipu Block New Garden Town, Lahore.
+General Info: Why Choose Superior University? -  Note: Superior University is ranked among the top private universities in Pakistan, offering innovative programs, entrepreneurship support, and international collaborations.."""
