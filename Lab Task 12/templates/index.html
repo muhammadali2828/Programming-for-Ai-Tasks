@@ -1,60 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>El Resto</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>El Resto Chatbot</title>
+<style>
+  /* Reset and base styling */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e1e8eb;
+  }
+
+  /* Full screen container */
+  .chat-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 25px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Header styles */
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-size: 48px;
+    font-weight: 900;
+    color: #00b894;
+    text-shadow: 0 0 8px rgba(0, 184, 148, 0.8);
+    user-select: none;
+  }
+
+  .header p {
+    font-size: 18px;
+    font-weight: 400;
+    color: #a3b1b9;
+    user-select: none;
+  }
+
+  /* Chat box styles */
+  .chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background: rgba(18, 33, 43, 0.7);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    scroll-behavior: smooth;
+  }
+
+  /* Message styles */
+  .bot-message,
+  .user-message {
+    margin: 12px 0;
+    padding: 16px 22px;
+    border-radius: 24px;
+    max-width: 75%;
+    font-size: 16px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .bot-message {
+    background: linear-gradient(135deg, #0984e3, #74b9ff);
+    color: #dfe6e9;
+    align-self: flex-start;
+    border-radius: 24px 24px 24px 6px;
+    font-weight: 600;
+  }
+
+  .user-message {
+    background: linear-gradient(135deg, #00b894, #55efc4);
+    color: #072a0f;
+    align-self: flex-end;
+    border-radius: 24px 24px 6px 24px;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  /* Input and button styling */
+  form {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  input[type="text"] {
+    flex: 2;
+    padding: 18px 25px;
+    border-radius: 30px;
+    border: none;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #e1e8eb;
+    outline: none;
+    box-shadow: inset 2px 2px 10px rgba(255, 255, 255, 0.1),
+      inset -2px -2px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: text;
+  }
+
+  input[type="text"]::placeholder {
+    color: #a3b1b9;
+  }
+
+  input[type="text"]:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: inset 4px 4px 12px rgba(255, 255, 255, 0.4),
+      inset -4px -4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  button {
+    flex: 0 0 auto;
+    background: linear-gradient(135deg, #00b894, #55efc4);
+    color: #072a0f;
+    border: none;
+    padding: 16px 34px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 184, 148, 0.6);
+    transition: filter 0.3s ease;
+    user-select: none;
+  }
+
+  button:hover {
+    filter: brightness(1.15);
+  }
+
+  /* Smooth fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Scrollbar styles for modern browsers */
+  .chat-box::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .chat-box::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .chat-box::-webkit-scrollbar-thumb {
+    background: rgba(0, 184, 148, 0.4);
+    border-radius: 6px;
+  }
+
+  /* Responsive adjustments for mobile */
+  @media (max-width: 600px) {
+    .chat-container {
+      padding: 15px 15px 20px 15px;
+      max-width: 100vw;
+      height: 100vh;
+    }
+
+    .header h1 {
+      font-size: 36px;
+    }
+
+    .header p {
+      font-size: 16px;
+    }
+
+    input[type="text"] {
+      font-size: 16px;
+      padding: 15px 20px;
+    }
+
+    button {
+      padding: 14px 26px;
+      font-size: 16px;
+    }
+  }
+</style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="header">
-            <h1>🍝 El Resto</h1>
-            <p>Ask anything about our restaurant!</p>
-        </div>
-
-        <div class="chat-box" id="chat-box">
-            <div class="bot-message">Hello! How can I help you today?</div>
-        </div>
-
-        <form id="chat-form">
-            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" required>
-            <button type="submit">Send</button>
-        </form>
+  <div class="chat-container">
+    <div class="header">
+      <h1>🍝 El Resto</h1>
+      <p>Ask anything about our restaurant!</p>
     </div>
 
-    <script>
-        const form = document.getElementById('chat-form');
-        const input = document.getElementById('user-input');
-        const chatBox = document.getElementById('chat-box');
+    <div class="chat-box" id="chat-box">
+      <div class="bot-message">Hello! How can I help you today?</div>
+    </div>
 
-        form.onsubmit = async (e) => {
-            e.preventDefault();
-            const userText = input.value.trim();
-            if (!userText) return;
+    <form id="chat-form">
+      <input
+        type="text"
+        id="user-input"
+        placeholder="Type your message..."
+        autocomplete="off"
+        required
+        autofocus
+      />
+      <button type="submit">Send</button>
+    </form>
+  </div>
 
-            // Display user message
-            const userDiv = document.createElement('div');
-            userDiv.className = 'user-message';
-            userDiv.innerText = userText;
-            chatBox.appendChild(userDiv);
+  <script>
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('user-input');
+    const chatBox = document.getElementById('chat-box');
 
-            input.value = "";
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const userText = input.value.trim();
+      if (!userText) return;
 
-            const response = await fetch("/get", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userText })
-            });
-            const data = await response.json();
+      // Add user message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'user-message';
+      userDiv.innerText = userText;
+      chatBox.appendChild(userDiv);
 
-            // Display bot response
-            const botDiv = document.createElement('div');
-            botDiv.className = 'bot-message';
-            botDiv.innerText = data.response;
-            chatBox.appendChild(botDiv);
+      input.value = '';
+      input.focus();
 
-            chatBox.scrollTop = chatBox.scrollHeight;
-        };
-    </script>
+      // Scroll chat box to bottom with smooth animation
+      chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: 'smooth' });
+
+      try {
+        const response = await fetch('/get', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: userText }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+
+        // Add bot response
+        const botDiv = document.createElement('div');
+        botDiv.className = 'bot-message';
+        botDiv.innerText = data.response;
+        chatBox.appendChild(botDiv);
+
+        // Scroll to bottom
+        chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: 'smooth' });
+      } catch (error) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bot-message';
+        errorDiv.innerText = 'Sorry, something went wrong. Please try again.';
+        chatBox.appendChild(errorDiv);
+        chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: 'smooth' });
+      }
+    };
+  </script>
 </body>
 </html>
+</content>
+</create_file>
